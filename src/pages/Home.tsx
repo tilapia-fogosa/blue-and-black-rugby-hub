@@ -16,6 +16,15 @@ const Home = () => {
       </div>
 
       <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto animate-fade-in">
+        {/* Logo grande */}
+        <div className="mb-8">
+          <img 
+            src="/lovable-uploads/3ccbf6a2-80d3-4f25-8554-4182b7193971.png" 
+            alt="Maringa Rugby Logo" 
+            className="w-32 h-32 md:w-40 md:h-40 object-contain mx-auto drop-shadow-2xl"
+          />
+        </div>
+        
         <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
           MARINGA
           <span className="block text-white font-black drop-shadow-lg">RUGBY CLUB</span>

@@ -10,9 +10,9 @@ const Footer = () => {
           <div className="col-span-1 md:col-span-2">
             <div className="flex items-center space-x-3 mb-4">
               <img 
-                src="/lovable-uploads/a1c2761f-e2d9-48db-a3bb-2ffe727deb81.png" 
+                src="/lovable-uploads/3ccbf6a2-80d3-4f25-8554-4182b7193971.png" 
                 alt="Maringa Rugby Logo" 
-                className="w-10 h-10 object-contain"
+                className="w-12 h-12 object-contain"
               />
               <h3 className="text-xl font-bold">Maringa Rugby Club</h3>
             </div>
