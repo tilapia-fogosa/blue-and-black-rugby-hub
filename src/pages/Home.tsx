@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { Link } from 'react-router-dom';
 
@@ -21,7 +20,7 @@ const Home = () => {
           <img 
             src="/lovable-uploads/3ccbf6a2-80d3-4f25-8554-4182b7193971.png" 
             alt="Maringa Rugby Logo" 
-            className="w-32 h-32 md:w-40 md:h-40 object-contain mx-auto drop-shadow-2xl"
+            className="w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 object-contain mx-auto drop-shadow-2xl"
           />
         </div>
         
