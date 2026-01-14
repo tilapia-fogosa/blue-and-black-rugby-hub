@@ -20,7 +20,7 @@ const Header = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 bg-rugby-blue-dark/95 backdrop-blur-sm border-b border-rugby-blue-primary/20">
+    <header className="fixed top-0 left-0 right-0 z-50 bg-rugby-black/95 backdrop-blur-sm border-b border-rugby-red/20">
       <div className="container mx-auto px-4">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
@@ -30,7 +30,7 @@ const Header = () => {
               alt="Maringa Rugby Logo" 
               className="w-12 h-12 object-contain"
             />
-            <h1 className="text-xl font-bold text-white">Maringa Rugby</h1>
+            <h1 className="text-xl font-bold text-rugby-cream">Maringa Rugby</h1>
           </Link>
 
           {/* Desktop Navigation */}
@@ -41,21 +41,21 @@ const Header = () => {
                 to={item.path}
                 className={`transition-colors ${
                   isActive(item.path) 
-                    ? 'text-rugby-blue-primary font-semibold' 
-                    : 'text-white hover:text-rugby-blue-primary'
+                    ? 'text-rugby-red font-semibold' 
+                    : 'text-rugby-cream hover:text-rugby-red'
                 }`}
               >
                 {item.label}
               </Link>
             ))}
-            <Button asChild className="bg-rugby-blue-primary hover:bg-rugby-blue-primary/90 text-white">
+            <Button asChild className="bg-rugby-red hover:bg-rugby-red/90 text-white">
               <Link to="/join">Inscreva-se</Link>
             </Button>
           </nav>
 
           {/* Mobile Menu Button */}
           <button 
-            className="md:hidden text-white"
+            className="md:hidden text-rugby-cream"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -66,7 +66,7 @@ const Header = () => {
 
         {/* Mobile Menu */}
         {isMenuOpen && (
-          <div className="md:hidden bg-rugby-blue-dark border-t border-rugby-blue-primary/20">
+          <div className="md:hidden bg-rugby-black border-t border-rugby-red/20">
             <div className="py-4 space-y-2">
               {navItems.map((item) => (
                 <Link
@@ -75,14 +75,14 @@ const Header = () => {
                   onClick={() => setIsMenuOpen(false)}
                   className={`block px-4 py-2 transition-colors ${
                     isActive(item.path)
-                      ? 'text-rugby-blue-primary font-semibold bg-rugby-blue-primary/20'
-                      : 'text-white hover:bg-rugby-blue-primary/20'
+                      ? 'text-rugby-red font-semibold bg-rugby-red/20'
+                      : 'text-rugby-cream hover:bg-rugby-red/20'
                   }`}
                 >
                   {item.label}
                 </Link>
               ))}
-              <Button asChild className="mx-4 mt-2 bg-rugby-blue-primary hover:bg-rugby-blue-primary/90 text-white w-full">
+              <Button asChild className="mx-4 mt-2 bg-rugby-red hover:bg-rugby-red/90 text-white w-full">
                 <Link to="/join" onClick={() => setIsMenuOpen(false)}>Inscreva-se</Link>
               </Button>
             </div>
