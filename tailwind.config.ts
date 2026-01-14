@@ -63,12 +63,12 @@ export default {
 					border: 'hsl(var(--sidebar-border))',
 					ring: 'hsl(var(--sidebar-ring))'
 				},
-				// Cores personalizadas do time de rugby
+			// Cores personalizadas do time de rugby
 				rugby: {
-					'blue-primary': '#004aad',
-					'blue-dark': '#070040',
 					'black': '#000000',
-					'white': '#ffffff'
+					'red': '#EF0707',
+					'gray': '#D3CDC7',
+					'cream': '#EFEEE9'
 				}
 			},
 			borderRadius: {
