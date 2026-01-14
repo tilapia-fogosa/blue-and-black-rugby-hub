@@ -50,7 +50,7 @@ const JoinForm = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
-            Junte-se ao Eagles
+            Junte-se ao Pé Vermelho
           </h2>
           <p className="text-xl text-gray-200 max-w-2xl mx-auto">
             Faça parte da nossa família e construa uma história de sucesso conosco
@@ -183,7 +183,7 @@ const JoinForm = () => {
                     value={formData.message}
                     onChange={(e) => handleChange('message', e.target.value)}
                     className="mt-1"
-                    placeholder="Por que você quer fazer parte do Eagles Rugby? Conte sobre sua motivação, objetivos e experiência esportiva..."
+                    placeholder="Por que você quer fazer parte do Pé Vermelho Rugby? Conte sobre sua motivação, objetivos e experiência esportiva..."
                     rows={4}
                   />
                 </div>

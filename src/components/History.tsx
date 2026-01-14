@@ -6,7 +6,7 @@ const History = () => {
     {
       year: "1985",
       title: "Fundação do Clube",
-      description: "Eagles Rugby Club foi fundado por um grupo de entusiastas do rugby, com o objetivo de promover o esporte na região."
+      description: "Pé Vermelho Rugby foi fundado por um grupo de entusiastas do rugby, com o objetivo de promover o esporte na região."
     },
     {
       year: "1992",

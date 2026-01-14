@@ -29,7 +29,7 @@ const Admin = () => {
   ]);
 
   const [historyItems, setHistoryItems] = useState([
-    { id: 1, year: '1985', title: 'Fundação do Clube', description: 'Eagles Rugby Club foi fundado...' },
+    { id: 1, year: '1985', title: 'Fundação do Clube', description: 'Pé Vermelho Rugby foi fundado...' },
     { id: 2, year: '1992', title: 'Primeiro Campeonato', description: 'Conquistamos nosso primeiro título...' },
   ]);
 
@@ -41,12 +41,12 @@ const Admin = () => {
           <div className="flex items-center space-x-4">
             <img 
               src="/lovable-uploads/3ccbf6a2-80d3-4f25-8554-4182b7193971.png" 
-              alt="Maringa Rugby Logo" 
+              alt="Pé Vermelho Rugby Logo" 
               className="w-12 h-12 object-contain"
             />
             <div>
               <h1 className="text-3xl font-bold">Painel Administrativo</h1>
-              <p className="text-rugby-red">Maringa Rugby Club</p>
+              <p className="text-rugby-red">Pé Vermelho Rugby</p>
             </div>
           </div>
         </div>

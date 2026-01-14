@@ -27,10 +27,10 @@ const Header = () => {
           <Link to="/" className="flex items-center space-x-3">
             <img 
               src="/lovable-uploads/3ccbf6a2-80d3-4f25-8554-4182b7193971.png" 
-              alt="Maringa Rugby Logo" 
+              alt="Pé Vermelho Rugby Logo" 
               className="w-12 h-12 object-contain"
             />
-            <h1 className="text-xl font-bold text-rugby-cream">Maringa Rugby</h1>
+            <h1 className="text-xl font-bold text-rugby-cream">Pé Vermelho Rugby</h1>
           </Link>
 
           {/* Desktop Navigation */}

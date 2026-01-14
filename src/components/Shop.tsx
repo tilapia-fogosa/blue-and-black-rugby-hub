@@ -28,7 +28,7 @@ const Shop = () => {
     },
     {
       id: 4,
-      name: "Boné Eagles",
+      name: "Boné Pé Vermelho",
       price: "R$ 39,90",
       image: "https://images.unsplash.com/photo-1452378174528-3090a4bba7b2?w=300&h=300&fit=crop",
       category: "Acessórios"
@@ -57,7 +57,7 @@ const Shop = () => {
             Loja Oficial
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Vista as cores do Eagles e mostre seu apoio ao time
+            Vista as cores do Pé Vermelho e mostre seu apoio ao time
           </p>
         </div>
 
