@@ -11,14 +11,14 @@ const Footer = () => {
             <div className="flex items-center space-x-3 mb-4">
               <img 
                 src="/lovable-uploads/3ccbf6a2-80d3-4f25-8554-4182b7193971.png" 
-                alt="Maringa Rugby Logo" 
+                alt="Pé Vermelho Rugby Logo" 
                 className="w-12 h-12 object-contain"
               />
-              <h3 className="text-xl font-bold">Maringa Rugby Club</h3>
+              <h3 className="text-xl font-bold">Pé Vermelho Rugby</h3>
             </div>
             <p className="text-rugby-gray mb-4 max-w-md">
               Desde 1985 promovendo os valores do rugby: força, união, tradição e espírito de equipe. 
-              Junte-se à nossa família Maringa Rugby.
+              Junte-se à nossa família Pé Vermelho Rugby.
             </p>
             <div className="flex space-x-4">
               <a href="#" className="text-rugby-gray hover:text-rugby-red transition-colors">
@@ -71,14 +71,14 @@ const Footer = () => {
             <div className="space-y-2 text-rugby-gray">
               <p>📍 Rua do Rugby, 123 - Centro</p>
               <p>📞 (44) 9999-8888</p>
-              <p>✉️ contato@maringarugby.com.br</p>
+              <p>✉️ contato@pevermelhorugby.com.br</p>
             </div>
           </div>
         </div>
 
         <div className="border-t border-rugby-gray/30 mt-8 pt-8 text-center">
           <p className="text-rugby-gray">
-            © 2024 Maringa Rugby Club. Todos os direitos reservados.
+            © 2024 Pé Vermelho Rugby. Todos os direitos reservados.
           </p>
         </div>
       </div>

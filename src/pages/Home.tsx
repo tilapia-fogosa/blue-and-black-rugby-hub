@@ -19,18 +19,18 @@ const Home = () => {
         <div className="mb-8">
           <img 
             src="/lovable-uploads/3ccbf6a2-80d3-4f25-8554-4182b7193971.png" 
-            alt="Maringa Rugby Logo" 
+            alt="Pé Vermelho Rugby Logo" 
             className="w-48 h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 object-contain mx-auto drop-shadow-2xl"
           />
         </div>
         
         <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-          MARINGA
-          <span className="block text-rugby-red font-black drop-shadow-lg">RUGBY CLUB</span>
+          PÉ VERMELHO
+          <span className="block text-rugby-red font-black drop-shadow-lg">RUGBY</span>
         </h1>
         
         <p className="text-xl md:text-2xl mb-8 text-rugby-gray max-w-2xl mx-auto leading-relaxed">
-          Força, tradição e espírito de equipe. Junte-se à família Maringa Rugby e faça parte da nossa história.
+          Força, tradição e espírito de equipe. Junte-se à família Pé Vermelho Rugby e faça parte da nossa história.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">

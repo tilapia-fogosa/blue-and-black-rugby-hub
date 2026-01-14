@@ -46,7 +46,7 @@ const Athletes = () => {
             Atletas Notáveis
           </h2>
           <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-            Conheça os heróis que marcaram a história do Eagles Rugby
+            Conheça os heróis que marcaram a história do Pé Vermelho Rugby
           </p>
         </div>
 

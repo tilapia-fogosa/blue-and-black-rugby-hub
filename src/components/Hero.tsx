@@ -23,12 +23,12 @@ const Hero = () => {
 
       <div className="relative z-10 text-center text-white px-4 max-w-4xl mx-auto animate-fade-in">
         <h1 className="text-5xl md:text-7xl font-bold mb-6 tracking-tight">
-          EAGLES
-          <span className="block text-rugby-blue-primary">RUGBY CLUB</span>
+          PÉ VERMELHO
+          <span className="block text-rugby-blue-primary">RUGBY</span>
         </h1>
         
         <p className="text-xl md:text-2xl mb-8 text-gray-200 max-w-2xl mx-auto leading-relaxed">
-          Força, tradição e espírito de equipe. Junte-se à família Eagles e faça parte da nossa história.
+          Força, tradição e espírito de equipe. Junte-se à família Pé Vermelho Rugby e faça parte da nossa história.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
