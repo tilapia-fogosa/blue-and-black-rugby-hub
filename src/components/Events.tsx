@@ -1,50 +1,33 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Calendar } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { Event } from '@/integrations/supabase/types';
 
 const Events = () => {
-  const events = [
-    {
-      id: 1,
-      title: "Campeonato Regional",
-      date: "2024-08-15",
-      time: "14:00",
-      location: "Estádio Municipal",
-      type: "Jogo",
-      opponent: "Lions RFC"
+  const { data: events, isLoading } = useQuery({
+    queryKey: ['events'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('events')
+        .select('*')
+        .order('date', { ascending: true });
+
+      if (error) throw error;
+      return data as Event[];
     },
-    {
-      id: 2,
-      title: "Treino Aberto",
-      date: "2024-08-20",
-      time: "18:00",
-      location: "Campo de Treino",
-      type: "Treino",
-      description: "Venha conhecer nosso time"
-    },
-    {
-      id: 3,
-      title: "Final do Campeonato",
-      date: "2024-09-01",
-      time: "16:00",
-      location: "Arena Central",
-      type: "Final",
-      opponent: "Wolves United"
-    },
-    {
-      id: 4,
-      title: "Evento de Arrecadação",
-      date: "2024-09-10",
-      time: "19:00",
-      location: "Clube Social",
-      type: "Social",
-      description: "Jantar beneficente"
-    }
-  ];
+  });
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString('pt-BR', {
+    // Adjust for timezone offset if necessary, or treat as UTC
+    // For simplicity, we'll assume the date string is YYYY-MM-DD
+    // and we want to display it correctly in local time or just parse the components
+    const [year, month, day] = dateString.split('-').map(Number);
+    const localDate = new Date(year, month - 1, day);
+
+    return localDate.toLocaleDateString('pt-BR', {
       day: '2-digit',
       month: 'long',
       year: 'numeric'
@@ -66,6 +49,16 @@ const Events = () => {
     }
   };
 
+  if (isLoading) {
+    return (
+      <section id="events" className="py-20 bg-white">
+        <div className="container mx-auto px-4 text-center">
+          <p>Carregando eventos...</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="events" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -80,8 +73,8 @@ const Events = () => {
 
         <div className="max-w-4xl mx-auto">
           <div className="space-y-6">
-            {events.map((event) => (
-              <Card 
+            {events?.map((event) => (
+              <Card
                 key={event.id}
                 className={`border-l-4 ${getEventColor(event.type)} hover:shadow-lg transition-shadow duration-300`}
               >
@@ -93,16 +86,15 @@ const Events = () => {
                       </CardTitle>
                       <div className="flex items-center text-gray-600 mb-2">
                         <Calendar className="w-4 h-4 mr-2" />
-                        <span>{formatDate(event.date)} às {event.time}</span>
+                        <span>{formatDate(event.date)} {event.time ? `às ${event.time.slice(0, 5)}` : ''}</span>
                       </div>
                       <p className="text-gray-500">{event.location}</p>
                     </div>
-                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${
-                      event.type === 'Jogo' ? 'bg-rugby-blue-primary text-white' :
-                      event.type === 'Final' ? 'bg-red-500 text-white' :
-                      event.type === 'Treino' ? 'bg-green-500 text-white' :
-                      'bg-purple-500 text-white'
-                    }`}>
+                    <span className={`px-3 py-1 rounded-full text-sm font-medium ${event.type === 'Jogo' ? 'bg-rugby-blue-primary text-white' :
+                        event.type === 'Final' ? 'bg-red-500 text-white' :
+                          event.type === 'Treino' ? 'bg-green-500 text-white' :
+                            'bg-purple-500 text-white'
+                      }`}>
                       {event.type}
                     </span>
                   </div>
@@ -119,6 +111,9 @@ const Events = () => {
                 </CardContent>
               </Card>
             ))}
+            {events?.length === 0 && (
+              <p className="text-center text-gray-500">Nenhum evento agendado no momento.</p>
+            )}
           </div>
         </div>
       </div>

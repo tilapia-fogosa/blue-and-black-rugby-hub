@@ -1,39 +1,32 @@
 
 import { Card, CardContent } from '@/components/ui/card';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { HistoryMilestone } from '@/integrations/supabase/types';
 
 const History = () => {
-  const milestones = [
-    {
-      year: "1985",
-      title: "Fundação do Clube",
-      description: "Pé Vermelho Rugby foi fundado por um grupo de entusiastas do rugby, com o objetivo de promover o esporte na região."
+  const { data: milestones, isLoading } = useQuery({
+    queryKey: ['history'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('history')
+        .select('*')
+        .order('year', { ascending: true });
+
+      if (error) throw error;
+      return data as HistoryMilestone[];
     },
-    {
-      year: "1992",
-      title: "Primeiro Campeonato",
-      description: "Conquistamos nosso primeiro título regional, marcando o início de uma trajetória vitoriosa."
-    },
-    {
-      year: "2001",
-      title: "Nova Sede",
-      description: "Inauguração de nossa sede própria com campo oficial e instalações modernas para treinamento."
-    },
-    {
-      year: "2010",
-      title: "Campeonato Nacional",
-      description: "Histórica conquista do campeonato nacional, elevando o clube ao patamar de elite do rugby brasileiro."
-    },
-    {
-      year: "2018",
-      title: "Centro de Formação",
-      description: "Criação do centro de formação de novos talentos, investindo no futuro do rugby."
-    },
-    {
-      year: "2023",
-      title: "40 Anos de Tradição",
-      description: "Celebramos quase quatro décadas de história, com mais de 15 títulos conquistados."
-    }
-  ];
+  });
+
+  if (isLoading) {
+    return (
+      <section id="history" className="py-20 bg-gradient-to-br from-rugby-blue-dark to-rugby-blue-primary">
+        <div className="container mx-auto px-4 text-center text-white">
+          <p>Carregando história...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="history" className="py-20 bg-gradient-to-br from-rugby-blue-dark to-rugby-blue-primary">
@@ -51,24 +44,21 @@ const History = () => {
           <div className="relative">
             {/* Timeline line */}
             <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-white/30 transform md:-translate-x-1/2"></div>
-            
+
             <div className="space-y-12">
-              {milestones.map((milestone, index) => (
-                <div 
-                  key={milestone.year}
-                  className={`relative flex items-center ${
-                    index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
-                  }`}
+              {milestones?.map((milestone, index) => (
+                <div
+                  key={milestone.id}
+                  className={`relative flex items-center ${index % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'
+                    }`}
                 >
                   {/* Timeline dot */}
-                  <div className={`absolute left-4 md:left-1/2 w-4 h-4 bg-white rounded-full transform -translate-x-1/2 z-10 ${
-                    index % 2 === 0 ? 'md:translate-x-1/2' : 'md:-translate-x-1/2'
-                  }`}></div>
-                  
+                  <div className={`absolute left-4 md:left-1/2 w-4 h-4 bg-white rounded-full transform -translate-x-1/2 z-10 ${index % 2 === 0 ? 'md:translate-x-1/2' : 'md:-translate-x-1/2'
+                    }`}></div>
+
                   {/* Content */}
-                  <div className={`w-full md:w-1/2 ml-12 md:ml-0 ${
-                    index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'
-                  }`}>
+                  <div className={`w-full md:w-1/2 ml-12 md:ml-0 ${index % 2 === 0 ? 'md:pr-8' : 'md:pl-8'
+                    }`}>
                     <Card className="bg-white/10 backdrop-blur-sm border-white/20 text-white animate-fade-in">
                       <CardContent className="p-6">
                         <div className="flex items-center mb-3">
@@ -83,6 +73,11 @@ const History = () => {
                   </div>
                 </div>
               ))}
+              {milestones?.length === 0 && (
+                <div className="text-center text-white">
+                  <p>Nenhum marco histórico encontrado.</p>
+                </div>
+              )}
             </div>
           </div>
         </div>

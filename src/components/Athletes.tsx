@@ -1,42 +1,34 @@
 
 import { Card, CardContent } from '@/components/ui/card';
 import { User } from 'lucide-react';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { Athlete } from '@/integrations/supabase/types';
 
 const Athletes = () => {
-  const notableAthletes = [
-    {
-      id: 1,
-      name: "Carlos Silva",
-      position: "Capitão - Centro",
-      achievements: "3x Campeão Nacional, Seleção Brasileira",
-      years: "2010-2024",
-      description: "Líder exemplar e um dos maiores pontuadores da história do clube."
+  const { data: athletes, isLoading } = useQuery({
+    queryKey: ['athletes'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('athletes')
+        .select('*')
+        .eq('active', true)
+        .order('name', { ascending: true });
+
+      if (error) throw error;
+      return data as Athlete[];
     },
-    {
-      id: 2,
-      name: "Roberto Santos",
-      position: "Pilar - Forward",
-      achievements: "Campeão Sul-Americano, Melhor Jogador 2018",
-      years: "2015-2023",
-      description: "Força imparável no scrum e referência técnica na posição."
-    },
-    {
-      id: 3,
-      name: "Miguel Torres",
-      position: "Meio-Scrum",
-      achievements: "2x Campeão Regional, Artilheiro 2020",
-      years: "2018-2024",
-      description: "Estrategista do time com visão de jogo excepcional."
-    },
-    {
-      id: 4,
-      name: "André Costa",
-      position: "Asa - Back",
-      achievements: "Velocista do Ano, Seleção Juvenil",
-      years: "2020-2024",
-      description: "Jovem promessa com velocidade e agilidade impressionantes."
-    }
-  ];
+  });
+
+  if (isLoading) {
+    return (
+      <section id="athletes" className="py-20 bg-gray-50">
+        <div className="container mx-auto px-4 text-center">
+          <p>Carregando atletas...</p>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section id="athletes" className="py-20 bg-gray-50">
@@ -51,28 +43,32 @@ const Athletes = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {notableAthletes.map((athlete) => (
-            <Card 
+          {athletes?.map((athlete) => (
+            <Card
               key={athlete.id}
               className="group hover:shadow-xl transition-all duration-300 transform hover:scale-105 bg-white border-0 shadow-lg"
             >
               <CardContent className="p-6 text-center">
-                <div className="w-20 h-20 bg-gradient-to-br from-rugby-blue-primary to-rugby-blue-dark rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300">
-                  <User className="w-10 h-10 text-white" />
+                <div className="w-20 h-20 bg-gradient-to-br from-rugby-blue-primary to-rugby-blue-dark rounded-full flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 overflow-hidden">
+                  {athlete.photo_url ? (
+                    <img src={athlete.photo_url} alt={athlete.name} className="w-full h-full object-cover" />
+                  ) : (
+                    <User className="w-10 h-10 text-white" />
+                  )}
                 </div>
-                
+
                 <h3 className="text-xl font-bold text-rugby-blue-dark mb-2">
                   {athlete.name}
                 </h3>
-                
+
                 <p className="text-rugby-blue-primary font-semibold mb-2">
                   {athlete.position}
                 </p>
-                
+
                 <p className="text-sm text-gray-600 mb-3">
                   {athlete.years}
                 </p>
-                
+
                 <div className="border-t border-gray-200 pt-3">
                   <p className="text-sm font-semibold text-rugby-blue-dark mb-2">
                     Conquistas:
@@ -87,6 +83,11 @@ const Athletes = () => {
               </CardContent>
             </Card>
           ))}
+          {athletes?.length === 0 && (
+            <div className="col-span-full text-center text-gray-500">
+              <p>Nenhum atleta encontrado.</p>
+            </div>
+          )}
         </div>
       </div>
     </section>

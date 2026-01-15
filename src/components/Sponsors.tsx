@@ -1,14 +1,23 @@
 
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
+import { useQuery } from '@tanstack/react-query';
+import { supabase } from '@/integrations/supabase/client';
+import { Sponsor } from '@/integrations/supabase/types';
 
 const Sponsors = () => {
-  const sponsors = [
-    { id: 1, name: "SportTech", category: "Equipamentos Esportivos" },
-    { id: 2, name: "FitNutrition", category: "Suplementos" },
-    { id: 3, name: "Banco Regional", category: "Serviços Financeiros" },
-    { id: 4, name: "Clínica Vida", category: "Saúde e Medicina Esportiva" },
-  ];
+  const { data: sponsors, isLoading } = useQuery({
+    queryKey: ['sponsors'],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from('sponsors')
+        .select('*')
+        .order('name', { ascending: true });
+
+      if (error) throw error;
+      return data as Sponsor[];
+    },
+  });
 
   const benefits = [
     {
@@ -46,6 +55,16 @@ const Sponsors = () => {
     }
   ];
 
+  if (isLoading) {
+    return (
+      <section id="sponsors" className="py-20 bg-white">
+        <div className="container mx-auto px-4 text-center">
+          <p>Carregando patrocinadores...</p>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section id="sponsors" className="py-20 bg-white">
       <div className="container mx-auto px-4">
@@ -64,19 +83,28 @@ const Sponsors = () => {
             Parceiros Atuais
           </h3>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {sponsors.map((sponsor) => (
+            {sponsors?.map((sponsor) => (
               <Card key={sponsor.id} className="text-center p-6 hover:shadow-lg transition-shadow">
                 <CardContent className="p-4">
-                  <div className="w-16 h-16 bg-gradient-to-br from-rugby-blue-primary to-rugby-blue-dark rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <span className="text-white font-bold text-lg">
-                      {sponsor.name.charAt(0)}
-                    </span>
+                  <div className="w-16 h-16 bg-gradient-to-br from-rugby-blue-primary to-rugby-blue-dark rounded-lg flex items-center justify-center mx-auto mb-3 overflow-hidden">
+                    {sponsor.logo_url ? (
+                      <img src={sponsor.logo_url} alt={sponsor.name} className="w-full h-full object-contain" />
+                    ) : (
+                      <span className="text-white font-bold text-lg">
+                        {sponsor.name.charAt(0)}
+                      </span>
+                    )}
                   </div>
                   <h4 className="font-bold text-rugby-blue-dark">{sponsor.name}</h4>
                   <p className="text-sm text-gray-600">{sponsor.category}</p>
                 </CardContent>
               </Card>
             ))}
+            {sponsors?.length === 0 && (
+              <div className="col-span-full text-center text-gray-500">
+                <p>Nenhum patrocinador cadastrado.</p>
+              </div>
+            )}
           </div>
         </div>
 
@@ -91,11 +119,10 @@ const Sponsors = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
             {benefits.map((plan, index) => (
-              <Card 
+              <Card
                 key={plan.tier}
-                className={`relative ${
-                  index === 1 ? 'ring-2 ring-rugby-blue-primary transform scale-105' : ''
-                } hover:shadow-xl transition-all duration-300`}
+                className={`relative ${index === 1 ? 'ring-2 ring-rugby-blue-primary transform scale-105' : ''
+                  } hover:shadow-xl transition-all duration-300`}
               >
                 {index === 1 && (
                   <div className="absolute -top-4 left-1/2 transform -translate-x-1/2">
@@ -107,7 +134,7 @@ const Sponsors = () => {
                 <CardContent className="p-6">
                   <h4 className="text-xl font-bold text-rugby-blue-dark mb-2">{plan.tier}</h4>
                   <p className="text-2xl font-bold text-rugby-blue-primary mb-4">{plan.price}</p>
-                  
+
                   <ul className="space-y-2 mb-6">
                     {plan.benefits.map((benefit, idx) => (
                       <li key={idx} className="flex items-start">
@@ -116,13 +143,12 @@ const Sponsors = () => {
                       </li>
                     ))}
                   </ul>
-                  
-                  <Button 
-                    className={`w-full ${
-                      index === 1 
-                        ? 'bg-rugby-blue-primary hover:bg-rugby-blue-primary/90' 
+
+                  <Button
+                    className={`w-full ${index === 1
+                        ? 'bg-rugby-blue-primary hover:bg-rugby-blue-primary/90'
                         : 'bg-rugby-blue-dark hover:bg-rugby-blue-dark/90'
-                    } text-white`}
+                      } text-white`}
                   >
                     Escolher Plano
                   </Button>
@@ -132,7 +158,7 @@ const Sponsors = () => {
           </div>
 
           <div className="text-center">
-            <Button 
+            <Button
               size="lg"
               className="bg-rugby-blue-primary hover:bg-rugby-blue-primary/90 text-white px-8 py-4 text-lg"
             >
