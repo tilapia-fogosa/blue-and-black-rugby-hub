@@ -13,6 +13,7 @@ import Athletes from "./pages/Athletes";
 import Sponsors from "./pages/Sponsors";
 import Shop from "./pages/Shop";
 import Join from "./pages/Join";
+import TacaPeVermelho from "./pages/TacaPeVermelho";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
 
@@ -35,6 +36,7 @@ const App = () => (
             <Route path="shop" element={<Shop />} />
             <Route path="join" element={<Join />} />
           </Route>
+          <Route path="/taca-pe-vermelho" element={<TacaPeVermelho />} />
           <Route path="/admin" element={<Admin />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

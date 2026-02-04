@@ -15,6 +15,7 @@ const Header = () => {
     { label: 'Atletas', path: '/athletes' },
     { label: 'Patrocinadores', path: '/sponsors' },
     { label: 'Loja', path: '/shop' },
+    { label: 'Taça Pé Vermelho', path: '/taca-pe-vermelho' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -25,9 +26,9 @@ const Header = () => {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <Link to="/" className="flex items-center space-x-3">
-            <img 
-              src="/lovable-uploads/3ccbf6a2-80d3-4f25-8554-4182b7193971.png" 
-              alt="Pé Vermelho Rugby Logo" 
+            <img
+              src="/lovable-uploads/3ccbf6a2-80d3-4f25-8554-4182b7193971.png"
+              alt="Pé Vermelho Rugby Logo"
               className="w-12 h-12 object-contain"
             />
             <h1 className="text-xl font-bold text-rugby-cream">Pé Vermelho Rugby</h1>
@@ -39,11 +40,10 @@ const Header = () => {
               <Link
                 key={item.path}
                 to={item.path}
-                className={`transition-colors ${
-                  isActive(item.path) 
-                    ? 'text-rugby-red font-semibold' 
+                className={`transition-colors ${isActive(item.path)
+                    ? 'text-rugby-red font-semibold'
                     : 'text-rugby-cream hover:text-rugby-red'
-                }`}
+                  }`}
               >
                 {item.label}
               </Link>
@@ -54,7 +54,7 @@ const Header = () => {
           </nav>
 
           {/* Mobile Menu Button */}
-          <button 
+          <button
             className="md:hidden text-rugby-cream"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
@@ -73,11 +73,10 @@ const Header = () => {
                   key={item.path}
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block px-4 py-2 transition-colors ${
-                    isActive(item.path)
+                  className={`block px-4 py-2 transition-colors ${isActive(item.path)
                       ? 'text-rugby-red font-semibold bg-rugby-red/20'
                       : 'text-rugby-cream hover:bg-rugby-red/20'
-                  }`}
+                    }`}
                 >
                   {item.label}
                 </Link>
