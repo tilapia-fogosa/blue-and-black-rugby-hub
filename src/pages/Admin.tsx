@@ -7,7 +7,7 @@ import AthletesAdmin from '@/components/admin/AthletesAdmin';
 import GalleriesAdmin from '@/components/admin/GalleriesAdmin';
 import SponsorsAdmin from '@/components/admin/SponsorsAdmin';
 import HistoryAdmin from '@/components/admin/HistoryAdmin';
-import { TacaAdmin } from "@/components/admin/TacaAdmin";
+import { CopaAdmin } from "@/components/admin/CopaAdmin";
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('events');
@@ -71,7 +71,7 @@ const Admin = () => {
               <span className="hidden sm:inline">História</span>
             </TabsTrigger>
             <TabsTrigger
-              value="taca"
+              value="copa"
               className="data-[state=active]:bg-rugby-red data-[state=active]:text-white text-rugby-red font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 py-3"
             >
               <Trophy className="w-4 h-4" />
@@ -99,8 +99,8 @@ const Admin = () => {
             <HistoryAdmin />
           </TabsContent>
 
-          <TabsContent value="taca" className="mt-6 animate-fade-in">
-            <TacaAdmin />
+          <TabsContent value="copa" className="mt-6 animate-fade-in">
+            <CopaAdmin />
           </TabsContent>
         </Tabs>
       </div>

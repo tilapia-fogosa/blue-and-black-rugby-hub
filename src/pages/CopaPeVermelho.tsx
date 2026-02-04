@@ -1,51 +1,60 @@
 
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Trophy } from 'lucide-react';
-import { RegistrationForm } from '@/components/taca/RegistrationForm';
+import { RegistrationForm } from '@/components/copa/RegistrationForm';
 
-const TacaPeVermelho = () => {
+const CopaPeVermelho = () => {
     return (
         <div className="min-h-screen bg-rugby-black">
             {/* Hero Section */}
-            <section className="relative h-[80vh] flex items-center justify-center overflow-hidden">
-                {/* Background - placeholder until we upload a real image */}
-                <div className="absolute inset-0 bg-gradient-to-br from-rugby-red/80 via-rugby-black/90 to-rugby-black z-0"></div>
+            <section className="relative min-h-[80vh] bg-rugby-black py-12 md:py-0">
+                <div className="container mx-auto px-4 h-full">
+                    <div className="grid md:grid-cols-2 gap-8 items-center min-h-[80vh]">
+                        {/* Left Column - Content */}
+                        <div className="animate-fade-in space-y-6 order-2 md:order-1">
+                            <span className="inline-block px-4 py-1 bg-rugby-red/20 border border-rugby-red rounded-full text-rugby-cream text-sm font-semibold tracking-wider mb-4">
+                                TEMPORADA 2024
+                            </span>
+                            <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tighter">
+                                COPA <span className="text-rugby-red">PÉ VERMELHO</span>
+                            </h1>
+                            <p className="text-xl md:text-2xl text-gray-300">
+                                O maior campeonato de rugby do interior. Mostre sua força, garra e paixão pelo esporte.
+                            </p>
 
-                <div className="container relative z-10 px-4 text-center">
-                    <div className="animate-fade-in space-y-6">
-                        <span className="inline-block px-4 py-1 bg-rugby-red/20 border border-rugby-red rounded-full text-rugby-cream text-sm font-semibold tracking-wider mb-4">
-                            TEMPADA 2024
-                        </span>
-                        <h1 className="text-5xl md:text-7xl font-bold text-white tracking-tighter">
-                            TAÇA <span className="text-rugby-red">PÉ VERMELHO</span>
-                        </h1>
-                        <p className="text-xl md:text-2xl text-gray-300 max-w-2xl mx-auto">
-                            O maior campeonato de rugby do interior. Mostre sua força, garra e paixão pelo esporte.
-                        </p>
+                            <div className="flex flex-col gap-4 pt-4">
+                                <div className="flex items-center gap-2 text-white">
+                                    <Calendar className="w-6 h-6 text-rugby-red" />
+                                    <span>15 de Agosto</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-white">
+                                    <MapPin className="w-6 h-6 text-rugby-red" />
+                                    <span>Estádio Municipal</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-white">
+                                    <Trophy className="w-6 h-6 text-rugby-red" />
+                                    <span>Premiação Exclusiva</span>
+                                </div>
+                            </div>
 
-                        <div className="flex flex-col md:flex-row justify-center gap-6 pt-8">
-                            <div className="flex items-center gap-2 text-white">
-                                <Calendar className="w-6 h-6 text-rugby-red" />
-                                <span>15 de Agosto</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-white">
-                                <MapPin className="w-6 h-6 text-rugby-red" />
-                                <span>Estádio Municipal</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-white">
-                                <Trophy className="w-6 h-6 text-rugby-red" />
-                                <span>Premiação Exclusiva</span>
+                            <div className="pt-6">
+                                <Button
+                                    size="lg"
+                                    className="bg-rugby-red hover:bg-rugby-red/90 text-white text-lg px-8 py-6 h-auto transition-all transform hover:scale-105"
+                                    onClick={() => document.getElementById('inscricao')?.scrollIntoView({ behavior: 'smooth' })}
+                                >
+                                    Inscreva-se Agora
+                                </Button>
                             </div>
                         </div>
 
-                        <div className="pt-8">
-                            <Button
-                                size="lg"
-                                className="bg-rugby-red hover:bg-rugby-red/90 text-white text-lg px-8 py-6 h-auto transition-all transform hover:scale-105"
-                                onClick={() => document.getElementById('inscricao')?.scrollIntoView({ behavior: 'smooth' })}
-                            >
-                                Inscreva-se Agora
-                            </Button>
+                        {/* Right Column - Image */}
+                        <div className="order-1 md:order-2 flex items-center justify-center">
+                            <img
+                                src="/copa-pe-vermelho-hero.jpg"
+                                alt="Copa Pé Vermelho de Rugby"
+                                className="w-full max-w-md md:max-w-lg rounded-2xl shadow-2xl hover:scale-105 transition-transform duration-300"
+                            />
                         </div>
                     </div>
                 </div>
@@ -59,7 +68,7 @@ const TacaPeVermelho = () => {
                             Sobre o <span className="text-rugby-red">Campeonato</span>
                         </h2>
                         <p className="text-gray-300 text-lg leading-relaxed">
-                            A Taça Pé Vermelho é mais do que um torneio, é a celebração do rugby no interior.
+                            A Copa Pé Vermelho é mais do que um torneio, é a celebração do rugby no interior.
                             Este campeonato foi pensado para juntar a galera, equilibrar os times e garantir jogos bons do começo ao fim.
                             A inscrição é individual, ou seja: cada atleta se inscreve por conta própria, independente do clube/time de origem.
                         </p>
@@ -132,7 +141,7 @@ const TacaPeVermelho = () => {
                                 </div>
                                 <div>
                                     <h4 className="text-white font-bold text-lg">1º Lugar</h4>
-                                    <p className="text-gray-400">Troféu Taça Pé Vermelho + Medalhas de Ouro + Kit de Equipamentos</p>
+                                    <p className="text-gray-400">Troféu Copa Pé Vermelho + Medalhas de Ouro + Kit de Equipamentos</p>
                                 </div>
                             </div>
                             <div className="flex items-start gap-4">
@@ -162,7 +171,7 @@ const TacaPeVermelho = () => {
                 <div className="container px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Inscrição de Atleta</h2>
-                        <p className="text-gray-300">Garanta sua vaga no time para a Taça Pé Vermelho.</p>
+                        <p className="text-gray-300">Garanta sua vaga no time para a Copa Pé Vermelho.</p>
                     </div>
                     {/* Form will go here */}
                     <div className="max-w-2xl mx-auto bg-rugby-black/50 p-8 rounded-2xl border border-white/10">
@@ -174,4 +183,4 @@ const TacaPeVermelho = () => {
     );
 };
 
-export default TacaPeVermelho;
+export default CopaPeVermelho;

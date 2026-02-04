@@ -15,7 +15,7 @@ const Header = () => {
     { label: 'Atletas', path: '/athletes' },
     { label: 'Patrocinadores', path: '/sponsors' },
     { label: 'Loja', path: '/shop' },
-    { label: 'Taça Pé Vermelho', path: '/taca-pe-vermelho' },
+    { label: 'Copa Pé Vermelho', path: '/copa-pe-vermelho' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
@@ -41,8 +41,8 @@ const Header = () => {
                 key={item.path}
                 to={item.path}
                 className={`transition-colors ${isActive(item.path)
-                    ? 'text-rugby-red font-semibold'
-                    : 'text-rugby-cream hover:text-rugby-red'
+                  ? 'text-rugby-red font-semibold'
+                  : 'text-rugby-cream hover:text-rugby-red'
                   }`}
               >
                 {item.label}
@@ -74,8 +74,8 @@ const Header = () => {
                   to={item.path}
                   onClick={() => setIsMenuOpen(false)}
                   className={`block px-4 py-2 transition-colors ${isActive(item.path)
-                      ? 'text-rugby-red font-semibold bg-rugby-red/20'
-                      : 'text-rugby-cream hover:bg-rugby-red/20'
+                    ? 'text-rugby-red font-semibold bg-rugby-red/20'
+                    : 'text-rugby-cream hover:bg-rugby-red/20'
                     }`}
                 >
                   {item.label}

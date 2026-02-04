@@ -10,7 +10,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { useToast } from '@/components/ui/use-toast';
 import { Loader2, Check, X, Eye, FileText } from 'lucide-react';
 
-export const TacaAdmin = () => {
+export const CopaAdmin = () => {
     const { toast } = useToast();
     const [filterStatus, setFilterStatus] = useState<string>('all');
 
@@ -68,7 +68,7 @@ export const TacaAdmin = () => {
     return (
         <Card>
             <CardHeader className="flex flex-row items-center justify-between">
-                <CardTitle>Inscrições - Taça Pé Vermelho</CardTitle>
+                <CardTitle>Inscrições - Copa Pé Vermelho</CardTitle>
                 <div className="w-[200px]">
                     <Select value={filterStatus} onValueChange={setFilterStatus}>
                         <SelectTrigger>
