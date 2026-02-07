@@ -75,7 +75,7 @@ const Admin = () => {
               className="data-[state=active]:bg-rugby-red data-[state=active]:text-white text-rugby-red font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 py-3"
             >
               <Trophy className="w-4 h-4" />
-              <span className="hidden sm:inline">Taça Pé Vermelho</span>
+              <span className="hidden sm:inline">Copa Pé Vermelho</span>
             </TabsTrigger>
           </TabsList>
 

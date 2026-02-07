@@ -3,19 +3,20 @@ import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Layout from "./components/Layout";
-import Home from "./pages/Home";
-import Gallery from "./pages/Gallery";
-import Events from "./pages/Events";
-import History from "./pages/History";
-import Athletes from "./pages/Athletes";
-import Sponsors from "./pages/Sponsors";
-import Shop from "./pages/Shop";
-import Join from "./pages/Join";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+// import Layout from "./components/Layout";
+// import Home from "./pages/Home";
+// import Gallery from "./pages/Gallery";
+// import Events from "./pages/Events";
+// import History from "./pages/History";
+// import Athletes from "./pages/Athletes";
+// import Sponsors from "./pages/Sponsors";
+// import Shop from "./pages/Shop";
+// import Join from "./pages/Join";
 import CopaPeVermelho from "./pages/CopaPeVermelho";
 import Admin from "./pages/Admin";
 import NotFound from "./pages/NotFound";
+import AthleteRegistration from "./pages/AthleteRegistration";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,17 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <Routes>
+          {/* Default redirect to Copa Pé Vermelho */}
+          <Route path="/" element={<Navigate to="/copa-pe-vermelho" replace />} />
+
+          {/* Active Routes */}
+          <Route path="/copa-pe-vermelho" element={<CopaPeVermelho />} />
+          <Route path="/cadastro-atleta" element={<AthleteRegistration />} />
+
+          {/* Admin Route (Kept for management) */}
+          <Route path="/admin" element={<Admin />} />
+
+          {/* Temporarily Disabled Routes
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="gallery" element={<Gallery />} />
@@ -36,8 +48,8 @@ const App = () => (
             <Route path="shop" element={<Shop />} />
             <Route path="join" element={<Join />} />
           </Route>
-          <Route path="/copa-pe-vermelho" element={<CopaPeVermelho />} />
-          <Route path="/admin" element={<Admin />} />
+          */}
+
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>

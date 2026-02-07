@@ -1,9 +1,10 @@
-
 import { Button } from '@/components/ui/button';
 import { Calendar, MapPin, Trophy } from 'lucide-react';
-import { RegistrationForm } from '@/components/copa/RegistrationForm';
+import { useNavigate } from 'react-router-dom';
 
 const CopaPeVermelho = () => {
+    const navigate = useNavigate();
+
     return (
         <div className="min-h-screen bg-rugby-black">
             {/* Hero Section */}
@@ -13,7 +14,7 @@ const CopaPeVermelho = () => {
                         {/* Left Column - Content */}
                         <div className="animate-fade-in space-y-6 order-2 md:order-1">
                             <span className="inline-block px-4 py-1 bg-rugby-red/20 border border-rugby-red rounded-full text-rugby-cream text-sm font-semibold tracking-wider mb-4">
-                                TEMPORADA 2024
+                                TEMPORADA 2026
                             </span>
                             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold text-white tracking-tighter">
                                 COPA <span className="text-rugby-red">PÉ VERMELHO</span>
@@ -25,15 +26,11 @@ const CopaPeVermelho = () => {
                             <div className="flex flex-col gap-4 pt-4">
                                 <div className="flex items-center gap-2 text-white">
                                     <Calendar className="w-6 h-6 text-rugby-red" />
-                                    <span>15 de Agosto</span>
+                                    <span>07 de Março de 2026</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-white">
                                     <MapPin className="w-6 h-6 text-rugby-red" />
-                                    <span>Estádio Municipal</span>
-                                </div>
-                                <div className="flex items-center gap-2 text-white">
-                                    <Trophy className="w-6 h-6 text-rugby-red" />
-                                    <span>Premiação Exclusiva</span>
+                                    <span>Campo do Ginásio de Esportes Lagoão - Apucarana PR</span>
                                 </div>
                             </div>
 
@@ -41,7 +38,7 @@ const CopaPeVermelho = () => {
                                 <Button
                                     size="lg"
                                     className="bg-rugby-red hover:bg-rugby-red/90 text-white text-lg px-8 py-6 h-auto transition-all transform hover:scale-105"
-                                    onClick={() => document.getElementById('inscricao')?.scrollIntoView({ behavior: 'smooth' })}
+                                    onClick={() => navigate('/cadastro-atleta')}
                                 >
                                     Inscreva-se Agora
                                 </Button>
@@ -131,54 +128,22 @@ const CopaPeVermelho = () => {
                             </li>
                         </ul>
                     </div>
-
-                    <div className="bg-rugby-blue-dark/30 p-8 rounded-2xl border border-white/10">
-                        <h3 className="text-2xl font-bold text-white mb-6">Premiação</h3>
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <div className="p-3 bg-yellow-500/20 rounded-lg">
-                                    <Trophy className="w-8 h-8 text-yellow-500" />
-                                </div>
-                                <div>
-                                    <h4 className="text-white font-bold text-lg">1º Lugar</h4>
-                                    <p className="text-gray-400">Troféu Copa Pé Vermelho + Medalhas de Ouro + Kit de Equipamentos</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-4">
-                                <div className="p-3 bg-gray-400/20 rounded-lg">
-                                    <Trophy className="w-8 h-8 text-gray-400" />
-                                </div>
-                                <div>
-                                    <h4 className="text-white font-bold text-lg">2º Lugar</h4>
-                                    <p className="text-gray-400">Medalhas de Prata + Troféu de Vice-Campeão</p>
-                                </div>
-                            </div>
-                            <div className="flex items-start gap-4">
-                                <div className="p-3 bg-orange-700/20 rounded-lg">
-                                    <Trophy className="w-8 h-8 text-orange-700" />
-                                </div>
-                                <div>
-                                    <h4 className="text-white font-bold text-lg">3º Lugar</h4>
-                                    <p className="text-gray-400">Medalhas de Bronze</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
             </section>
 
-            <div id="inscricao" className="py-20 bg-rugby-blue-dark/10">
-                <div className="container px-4">
-                    <div className="text-center mb-12">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Inscrição de Atleta</h2>
-                        <p className="text-gray-300">Garanta sua vaga no time para a Copa Pé Vermelho.</p>
-                    </div>
-                    {/* Form will go here */}
-                    <div className="max-w-2xl mx-auto bg-rugby-black/50 p-8 rounded-2xl border border-white/10">
-                        <RegistrationForm />
+            {/* Footer Logos */}
+            <footer className="py-12 bg-rugby-black border-t border-white/5">
+                <div className="container mx-auto px-4 text-center">
+                    <p className="text-gray-500 text-sm mb-8 uppercase tracking-widest font-semibold text-center">Parceiros & Clubes</p>
+                    <div className="flex justify-center items-center opacity-80 hover:opacity-100 transition-opacity duration-300">
+                        <img
+                            src="/logos-footer.png"
+                            alt="Logos Parceiros"
+                            className="max-w-full h-auto max-h-32"
+                        />
                     </div>
                 </div>
-            </div>
+            </footer>
         </div>
     );
 };
