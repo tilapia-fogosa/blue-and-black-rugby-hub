@@ -321,7 +321,7 @@ const AthleteRegistrationForm = () => {
                                     </SelectTrigger>
                                     <SelectContent className="bg-rugby-black border-white/10 text-white">
                                         <SelectItem value="Pilar">Pilar</SelectItem>
-                                        <SelectItem value="Talonador">Talonador</SelectItem>
+                                        <SelectItem value="Hooker">Hooker</SelectItem>
                                         <SelectItem value="Segunda Linha">Segunda Linha</SelectItem>
                                         <SelectItem value="Asa">Asa</SelectItem>
                                         <SelectItem value="Oitavo">Oitavo</SelectItem>

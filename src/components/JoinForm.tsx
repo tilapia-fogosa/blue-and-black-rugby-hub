@@ -160,7 +160,7 @@ const JoinForm = () => {
                       </SelectTrigger>
                       <SelectContent>
                         <SelectItem value="pilar">Pilar</SelectItem>
-                        <SelectItem value="talonador">Talonador</SelectItem>
+                        <SelectItem value="hooker">Hooker</SelectItem>
                         <SelectItem value="segunda-linha">Segunda Linha</SelectItem>
                         <SelectItem value="terceira-linha">Terceira Linha</SelectItem>
                         <SelectItem value="meio-scrum">Meio-Scrum</SelectItem>
@@ -189,7 +189,7 @@ const JoinForm = () => {
                 </div>
 
                 <div className="text-center pt-4">
-                  <Button 
+                  <Button
                     type="submit"
                     size="lg"
                     className="bg-rugby-blue-primary hover:bg-rugby-blue-primary/90 text-white px-12 py-4 text-lg font-semibold"
