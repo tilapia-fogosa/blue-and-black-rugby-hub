@@ -1,5 +1,5 @@
 import { Button } from '@/components/ui/button';
-import { Calendar, MapPin, Trophy } from 'lucide-react';
+import { Calendar, MapPin, Trophy, Clock } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const CopaPeVermelho = () => {
@@ -27,6 +27,10 @@ const CopaPeVermelho = () => {
                                 <div className="flex items-center gap-2 text-white">
                                     <Calendar className="w-6 h-6 text-rugby-red" />
                                     <span>07 de Março de 2026</span>
+                                </div>
+                                <div className="flex items-center gap-2 text-white">
+                                    <Clock className="w-6 h-6 text-rugby-red" />
+                                    <span>Início às 09:00h</span>
                                 </div>
                                 <div className="flex items-center gap-2 text-white">
                                     <MapPin className="w-6 h-6 text-rugby-red" />

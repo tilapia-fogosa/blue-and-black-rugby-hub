@@ -29,8 +29,10 @@ const AthleteRegistrationForm = () => {
         birth_date: '',
         cpf: '',
         category: '',
+        experience: '',
     });
     const [paymentProof, setPaymentProof] = useState<File | null>(null);
+    const [athletePhoto, setAthletePhoto] = useState<File | null>(null);
     const [showSuccessModal, setShowSuccessModal] = useState(false);
 
     const handleChange = (field: string, value: string) => {
@@ -43,6 +45,12 @@ const AthleteRegistrationForm = () => {
     const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.files && e.target.files[0]) {
             setPaymentProof(e.target.files[0]);
+        }
+    };
+
+    const handleAthletePhotoChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setAthletePhoto(e.target.files[0]);
         }
     };
 
@@ -98,26 +106,56 @@ const AthleteRegistrationForm = () => {
                 throw new Error("Este CPF já possui um cadastro.");
             }
 
-            // 2. Upload File
-            const fileExt = paymentProof.name.split('.').pop();
-            const filePath = `${formData.cpf}_${Date.now()}.${fileExt}`;
+            // 2. Upload Files
+            // Payment Proof
+            const proofExt = paymentProof.name.split('.').pop();
+            const proofPath = `proof_${formData.cpf}_${Date.now()}.${proofExt}`;
 
-            const { error: uploadError } = await supabase.storage
+            const { error: uploadProofError } = await supabase.storage
                 .from('payment-proofs')
-                .upload(filePath, paymentProof);
+                .upload(proofPath, paymentProof);
 
-            if (uploadError) throw uploadError;
+            if (uploadProofError) throw uploadProofError;
 
-            const { data: { publicUrl } } = supabase.storage
+            const { data: { publicUrl: proofUrl } } = supabase.storage
                 .from('payment-proofs')
-                .getPublicUrl(filePath);
+                .getPublicUrl(proofPath);
+
+            // Athlete Photo (Optional but requested as field)
+            let athletePhotoUrl = null;
+            if (athletePhoto) {
+                const photoExt = athletePhoto.name.split('.').pop();
+                const photoPath = `photo_${formData.cpf}_${Date.now()}.${photoExt}`;
+
+                const { error: uploadPhotoError } = await supabase.storage
+                    .from('payment-proofs') // Using same bucket or maybe 'athlete-photos' if exists? Assuming same for now or 'athlete-photos'
+                    .upload(photoPath, athletePhoto);
+
+                // NOTE: If 'athlete-photos' bucket doesn't exist, this will fail. 
+                // I will use 'payment-proofs' for now as I know it exists, or risking 'athlete-photos' if I could verify.
+                // Let's stick to 'payment-proofs' to be safe or try to use a specific bucket if the user has one.
+                // Given the context, I'll use 'payment-proofs' to ensure success, but ideally should be separate.
+
+                if (uploadPhotoError) {
+                    console.error("Error uploading photo:", uploadPhotoError);
+                    // treat as non-fatal? or throw? requested as field, let's throw.
+                    throw uploadPhotoError;
+                }
+
+                const { data: { publicUrl } } = supabase.storage
+                    .from('payment-proofs')
+                    .getPublicUrl(photoPath);
+                athletePhotoUrl = publicUrl;
+            }
 
             // 3. Insert Record
             const { error: insertError } = await supabase
                 .from('athlete_registrations')
                 .insert({
                     ...formData,
-                    payment_proof_url: publicUrl,
+                    payment_proof_url: proofUrl,
+                    athlete_photo_url: athletePhotoUrl,
+                    experience_time: formData.experience,
                     status: 'pending'
                 });
 
@@ -154,8 +192,10 @@ const AthleteRegistrationForm = () => {
                 birth_date: '',
                 cpf: '',
                 category: '',
+                experience: '',
             });
             setPaymentProof(null);
+            setAthletePhoto(null);
 
         } catch (error: any) {
             console.error('Error registering:', error);
@@ -320,6 +360,50 @@ const AthleteRegistrationForm = () => {
                                 />
                             </div>
                             <p className="text-xs text-gray-500 mt-1">Formatos aceitos: Imagem (JPG, PNG) ou PDF.</p>
+                        </div>
+
+                        {/* New Fields: Athlete Photo and Experience */}
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                                <Label htmlFor="athlete_photo" className="text-gray-300">Foto do Atleta *</Label>
+                                <div className="mt-1 flex items-center gap-4">
+                                    <Button
+                                        type="button"
+                                        variant="outline"
+                                        className="w-full border-dashed border-white/20 bg-white/5 hover:bg-white/10 text-gray-400"
+                                        onClick={() => document.getElementById('athlete-photo')?.click()}
+                                    >
+                                        {athletePhoto ? (
+                                            <span className="text-green-500 font-medium flex items-center gap-2">
+                                                <Upload className="w-4 h-4" /> {athletePhoto.name}
+                                            </span>
+                                        ) : (
+                                            <span className="text-gray-500 flex items-center gap-2">
+                                                <Upload className="w-4 h-4" /> Escolher Foto
+                                            </span>
+                                        )}
+                                    </Button>
+                                    <Input
+                                        id="athlete-photo"
+                                        type="file"
+                                        accept="image/*"
+                                        className="hidden"
+                                        onChange={handleAthletePhotoChange}
+                                    />
+                                </div>
+                                <p className="text-xs text-gray-500 mt-1">Foto de rosto para identificação.</p>
+                            </div>
+                            <div>
+                                <Label htmlFor="experience" className="text-gray-300">Pratica rugby há quanto tempo? *</Label>
+                                <Input
+                                    id="experience"
+                                    value={formData.experience}
+                                    onChange={(e) => handleChange('experience', e.target.value)}
+                                    required
+                                    className="mt-1 bg-white/5 border-white/10 text-white placeholder:text-gray-500"
+                                    placeholder="Ex: 2 anos, 6 meses, Iniciante..."
+                                />
+                            </div>
                         </div>
 
                         <div className="pt-4 text-center">

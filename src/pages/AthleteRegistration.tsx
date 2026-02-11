@@ -27,8 +27,8 @@ const AthleteRegistration = () => {
 
                             <div className="bg-white/5 p-4 rounded-md border border-white/10">
                                 <p className="text-sm font-semibold text-rugby-red mb-2 uppercase tracking-wider">Dados para Pagamento (PIX)</p>
-                                <p className="text-lg font-mono text-white select-all">CNPJ: 00.000.000/0000-00</p>
-                                <p className="text-xs text-gray-500 mt-1">Conta: Pé Vermelho Rugby</p>
+                                <p className="text-lg font-mono text-white select-all">CNPJ: 11.552.507/0001-74</p>
+                                <p className="text-xs text-gray-500 mt-1">Conta: Associação Londrina Rugby Clube (Pé vermelho)</p>
                             </div>
 
                             <ul className="space-y-2 list-disc list-inside text-sm">
