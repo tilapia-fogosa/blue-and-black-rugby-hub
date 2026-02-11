@@ -61,7 +61,12 @@ const AthleteRegistrationForm = () => {
         const age = currentYear - birthYear;
 
         if (age < 19) {
-            return gender === 'Masc' ? 'Juvenil Masc' : 'Juvenil Fem';
+            return gender === 'Masc' ? 'Juvenil Masc' : 'Feminino'; // No Juvenil Fem, fallback to Adulto Fem or just don't handle? 
+            // The user said remove the category. If a girl is < 19, she probably goes to Feminino (Adulto) or cannot register as Juvenil?
+            // Assuming fallback to Feminino for now or just removing the specific return.
+            // Let's just remove the specific Juvenil Fem return.
+            // Actually, if I look at line 58: return gender === 'Masc' ? 'Masc' : 'Feminino';
+            // If I change line 56.
         }
         return gender === 'Masc' ? 'Masc' : 'Feminino'; // Adulto
     };
@@ -267,7 +272,6 @@ const AthleteRegistrationForm = () => {
                                         <SelectItem value="Masc">Masculino Adulto</SelectItem>
                                         <SelectItem value="Feminino">Feminino Adulto</SelectItem>
                                         <SelectItem value="Juvenil Masc">Juvenil Masculino</SelectItem>
-                                        <SelectItem value="Juvenil Fem">Juvenil Feminino</SelectItem>
                                     </SelectContent>
                                 </Select>
                             </div>
