@@ -1,32 +1,65 @@
 
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calendar, Users, Image, Trophy, Clock, Handshake } from 'lucide-react';
+import { Calendar, Users, Image, Trophy, Clock, Handshake, LogOut } from 'lucide-react';
 import EventsAdmin from '@/components/admin/EventsAdmin';
 import AthletesAdmin from '@/components/admin/AthletesAdmin';
 import GalleriesAdmin from '@/components/admin/GalleriesAdmin';
 import SponsorsAdmin from '@/components/admin/SponsorsAdmin';
 import HistoryAdmin from '@/components/admin/HistoryAdmin';
 import { CopaAdmin } from "@/components/admin/CopaAdmin";
+import { Button } from '@/components/ui/button';
+import { supabase } from '@/integrations/supabase/client';
+import { useToast } from '@/hooks/use-toast';
 
 const Admin = () => {
   const [activeTab, setActiveTab] = useState('events');
+  const navigate = useNavigate();
+  const { toast } = useToast();
+
+  const handleLogout = async () => {
+    try {
+      await supabase.auth.signOut();
+      toast({
+        title: 'Logout realizado com sucesso',
+        description: 'Você foi desconectado do painel administrativo.',
+      });
+      navigate('/login');
+    } catch (error) {
+      toast({
+        title: 'Erro ao fazer logout',
+        description: 'Ocorreu um erro ao tentar sair.',
+        variant: 'destructive',
+      });
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-rugby-cream via-white to-rugby-cream/50">
       {/* Header */}
       <div className="bg-gradient-to-r from-rugby-black via-rugby-blue-dark to-rugby-black text-white shadow-2xl">
         <div className="container mx-auto px-4 py-8">
-          <div className="flex items-center space-x-4">
-            <div className="w-16 h-16 bg-rugby-red rounded-full flex items-center justify-center shadow-lg">
-              <Trophy className="w-8 h-8 text-white" />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-4">
+              <div className="w-16 h-16 bg-rugby-red rounded-full flex items-center justify-center shadow-lg">
+                <Trophy className="w-8 h-8 text-white" />
+              </div>
+              <div>
+                <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-rugby-cream bg-clip-text text-transparent">
+                  Painel Administrativo
+                </h1>
+                <p className="text-rugby-red font-semibold text-lg">Pé Vermelho Rugby</p>
+              </div>
             </div>
-            <div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-white to-rugby-cream bg-clip-text text-transparent">
-                Painel Administrativo
-              </h1>
-              <p className="text-rugby-red font-semibold text-lg">Pé Vermelho Rugby</p>
-            </div>
+            <Button
+              onClick={handleLogout}
+              variant="outline"
+              className="bg-transparent border-rugby-red text-rugby-red hover:bg-rugby-red hover:text-white transition-all duration-300"
+            >
+              <LogOut className="w-4 h-4 mr-2" />
+              Sair
+            </Button>
           </div>
         </div>
       </div>

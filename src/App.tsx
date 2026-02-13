@@ -15,8 +15,10 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 // import Join from "./pages/Join";
 import CopaPeVermelho from "./pages/CopaPeVermelho";
 import Admin from "./pages/Admin";
+import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import AthleteRegistration from "./pages/AthleteRegistration";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
 
@@ -34,8 +36,18 @@ const App = () => (
           <Route path="/copa-pe-vermelho" element={<CopaPeVermelho />} />
           <Route path="/cadastro-atleta" element={<AthleteRegistration />} />
 
-          {/* Admin Route (Kept for management) */}
-          <Route path="/admin" element={<Admin />} />
+          {/* Authentication Route */}
+          <Route path="/login" element={<Login />} />
+
+          {/* Protected Admin Route */}
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute>
+                <Admin />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Temporarily Disabled Routes
           <Route path="/" element={<Layout />}>
