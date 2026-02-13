@@ -2,13 +2,14 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import { Calendar, Users, Image, Trophy, Clock, Handshake, LogOut } from 'lucide-react';
+import { Calendar, Users, Image, Trophy, Clock, Handshake, LogOut, BarChart } from 'lucide-react';
 import EventsAdmin from '@/components/admin/EventsAdmin';
 import AthletesAdmin from '@/components/admin/AthletesAdmin';
 import GalleriesAdmin from '@/components/admin/GalleriesAdmin';
 import SponsorsAdmin from '@/components/admin/SponsorsAdmin';
 import HistoryAdmin from '@/components/admin/HistoryAdmin';
 import { CopaAdmin } from "@/components/admin/CopaAdmin";
+import { CopaStatistics } from "@/components/admin/CopaStatistics";
 import { Button } from '@/components/ui/button';
 import { supabase } from '@/integrations/supabase/client';
 import { useToast } from '@/hooks/use-toast';
@@ -67,7 +68,7 @@ const Admin = () => {
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-2 md:grid-cols-6 bg-gray-200 shadow-inner rounded-xl p-1 gap-1 h-auto">
+          <TabsList className="grid w-full grid-cols-2 md:grid-cols-7 bg-gray-200 shadow-inner rounded-xl p-1 gap-1 h-auto">
             <TabsTrigger
               value="events"
               className="data-[state=active]:bg-rugby-blue-dark data-[state=active]:text-white text-rugby-blue-dark font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 py-3"
@@ -110,6 +111,13 @@ const Admin = () => {
               <Trophy className="w-4 h-4" />
               <span className="hidden sm:inline">Copa Pé Vermelho</span>
             </TabsTrigger>
+            <TabsTrigger
+              value="statistics"
+              className="data-[state=active]:bg-rugby-red data-[state=active]:text-white text-rugby-red font-bold rounded-lg transition-all duration-300 flex items-center justify-center gap-2 py-3"
+            >
+              <BarChart className="w-4 h-4" />
+              <span className="hidden sm:inline">Totalizadores</span>
+            </TabsTrigger>
           </TabsList>
 
           <TabsContent value="events" className="mt-6 animate-fade-in">
@@ -134,6 +142,10 @@ const Admin = () => {
 
           <TabsContent value="copa" className="mt-6 animate-fade-in">
             <CopaAdmin />
+          </TabsContent>
+
+          <TabsContent value="statistics" className="mt-6 animate-fade-in">
+            <CopaStatistics />
           </TabsContent>
         </Tabs>
       </div>
