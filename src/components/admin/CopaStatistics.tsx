@@ -110,7 +110,7 @@ export const CopaStatistics = () => {
             </CardHeader>
             <CardContent className="pt-4 space-y-3">
                 <div className="flex justify-between items-center p-3 bg-blue-50 rounded-lg">
-                    <span className="font-semibold text-rugby-blue-dark">Forwards</span>
+                    <span className="font-semibold text-blue-900">Forwards</span>
                     <Badge className="bg-rugby-blue-dark hover:bg-rugby-blue-dark/90 text-white">
                         {stats.forwards}
                     </Badge>
