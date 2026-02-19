@@ -53,14 +53,23 @@ const Admin = () => {
                 <p className="text-rugby-red font-semibold text-lg">Pé Vermelho Rugby</p>
               </div>
             </div>
-            <Button
-              onClick={handleLogout}
-              variant="outline"
-              className="bg-transparent border-rugby-red text-rugby-red hover:bg-rugby-red hover:text-white transition-all duration-300"
-            >
-              <LogOut className="w-4 h-4 mr-2" />
-              Sair
-            </Button>
+            <div className="flex items-center gap-4">
+              <Button
+                onClick={() => navigate('/admin/draft')}
+                className="bg-rugby-red hover:bg-rugby-red/90 text-white font-bold shadow-lg transition-transform hover:scale-105"
+              >
+                <Users className="w-4 h-4 mr-2" />
+                Draft de Times
+              </Button>
+              <Button
+                onClick={handleLogout}
+                variant="outline"
+                className="bg-transparent border-rugby-red text-rugby-red hover:bg-rugby-red hover:text-white transition-all duration-300"
+              >
+                <LogOut className="w-4 h-4 mr-2" />
+                Sair
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -149,7 +158,7 @@ const Admin = () => {
           </TabsContent>
         </Tabs>
       </div>
-    </div>
+    </div >
   );
 };
 

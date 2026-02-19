@@ -35,8 +35,10 @@ export type Athlete = {
     achievements: string | null;
     years: string | null;
     description: string | null;
-    photo_url: string | null;
+    athlete_photo_url: string | null;
     active: boolean;
+    draft_team: string | null;
+    draft_position_group: string | null;
     created_at: string;
 };
 

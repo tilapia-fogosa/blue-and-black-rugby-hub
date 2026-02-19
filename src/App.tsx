@@ -18,6 +18,7 @@ import Admin from "./pages/Admin";
 import Login from "./pages/Login";
 import NotFound from "./pages/NotFound";
 import AthleteRegistration from "./pages/AthleteRegistration";
+import DraftPage from "./pages/DraftPage";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -45,6 +46,14 @@ const App = () => (
             element={
               <ProtectedRoute>
                 <Admin />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/admin/draft"
+            element={
+              <ProtectedRoute>
+                <DraftPage />
               </ProtectedRoute>
             }
           />
