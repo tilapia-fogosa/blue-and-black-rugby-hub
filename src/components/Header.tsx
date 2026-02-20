@@ -16,6 +16,7 @@ const Header = () => {
     { label: 'Patrocinadores', path: '/sponsors' },
     { label: 'Loja', path: '/shop' },
     { label: 'Copa Pé Vermelho', path: '/copa-pe-vermelho' },
+    { label: 'Relatórios', path: '/relatorios' },
   ];
 
   const isActive = (path: string) => location.pathname === path;
