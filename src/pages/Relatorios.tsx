@@ -59,11 +59,26 @@ const Relatorios = () => {
             }
 
             // Count by origin team
-            const teamName = reg.origin_team?.trim() || 'Sem time / Avulso';
-            // Normalize generic team names
-            const normalizedTeamName = (teamName.toLowerCase() === 'nenhum' || teamName === '' || teamName.toLowerCase() === 'nao' || teamName.toLowerCase() === 'não')
-                ? 'Sem time / Avulso'
-                : teamName;
+            const rawTeamName = reg.origin_team || '';
+
+            const mapToMainTeam = (name: string): string => {
+                const input = name.toLowerCase().trim();
+                if (!input || input === 'nenhum' || input === 'nao' || input === 'não') {
+                    return 'Sem time / Avulso';
+                }
+
+                // Substring matches for the 5 main teams
+                if (input.includes('maringa') || input.includes('maringá')) return 'Maringá';
+                if (input.includes('londrina') || input.includes('pé vermelho') || input.includes('pe vermelho') || input.includes('alrc')) return 'Londrina';
+                if (input.includes('sarandi')) return 'Sarandi';
+                if (input.includes('assis')) return 'Assis';
+                if (input.includes('apucarana')) return 'Apucarana';
+
+                // Original string if it doesn't match the 5 main teams
+                return name.trim();
+            };
+
+            const normalizedTeamName = mapToMainTeam(rawTeamName);
 
             teams[normalizedTeamName] = (teams[normalizedTeamName] || 0) + 1;
         });
