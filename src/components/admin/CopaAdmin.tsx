@@ -1,18 +1,22 @@
 
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { useQuery } from '@tanstack/react-query';
 import { supabase } from '@/integrations/supabase/client';
 import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { useToast } from '@/components/ui/use-toast';
-import { Loader2, Check, X, Eye, FileText } from 'lucide-react';
+import { Loader2, Check, X, FileText, Search, Filter } from 'lucide-react';
 
 export const CopaAdmin = () => {
     const { toast } = useToast();
     const [filterStatus, setFilterStatus] = useState<string>('all');
+    const [filterName, setFilterName] = useState('');
+    const [filterCategory, setFilterCategory] = useState('all');
+    const [filterTeam, setFilterTeam] = useState('all');
 
     const { data: registrations, isLoading, refetch } = useQuery({
         queryKey: ['registrations'],
@@ -71,9 +75,24 @@ export const CopaAdmin = () => {
         }
     };
 
-    const filteredRegistrations = registrations?.filter(reg =>
-        filterStatus === 'all' ? true : reg.status === filterStatus
-    );
+    // Opções dinâmicas a partir dos dados
+    const categories = useMemo(() => {
+        const cats = new Set(registrations?.map(r => r.category).filter(Boolean));
+        return Array.from(cats).sort();
+    }, [registrations]);
+
+    const teams = useMemo(() => {
+        const ts = new Set(registrations?.map(r => r.origin_team).filter(Boolean));
+        return Array.from(ts).sort();
+    }, [registrations]);
+
+    const filteredRegistrations = registrations?.filter(reg => {
+        const matchStatus = filterStatus === 'all' || reg.status === filterStatus;
+        const matchName = filterName === '' || reg.name?.toLowerCase().includes(filterName.toLowerCase());
+        const matchCategory = filterCategory === 'all' || reg.category === filterCategory;
+        const matchTeam = filterTeam === 'all' || reg.origin_team === filterTeam;
+        return matchStatus && matchName && matchCategory && matchTeam;
+    });
 
     const getStatusBadge = (status: string) => {
         switch (status) {
@@ -88,21 +107,66 @@ export const CopaAdmin = () => {
 
     return (
         <Card className="border-0 shadow-xl overflow-hidden">
-            <CardHeader className="bg-rugby-black text-white flex flex-row items-center justify-between">
-                <div>
-                    <CardTitle className="text-2xl font-bold">Inscrições Copa 2026</CardTitle>
-                    <p className="text-gray-400 text-sm mt-1">Gerencie os atletas inscritos e confirme pagamentos.</p>
+            <CardHeader className="bg-rugby-black text-white">
+                <div className="flex items-center justify-between">
+                    <div>
+                        <CardTitle className="text-2xl font-bold">Inscrições Copa 2026</CardTitle>
+                        <p className="text-gray-400 text-sm mt-1">Gerencie os atletas inscritos e confirme pagamentos.</p>
+                    </div>
+                    <Badge variant="outline" className="text-white border-white/30 text-sm px-3 py-1">
+                        {filteredRegistrations?.length ?? 0} de {registrations?.length ?? 0} inscrições
+                    </Badge>
                 </div>
-                <div className="w-[200px]">
+
+                {/* Barra de Filtros */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
+                    {/* Filtro Nome */}
+                    <div className="relative">
+                        <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400" />
+                        <Input
+                            placeholder="Buscar por nome..."
+                            value={filterName}
+                            onChange={e => setFilterName(e.target.value)}
+                            className="pl-9 bg-white/10 border-white/20 text-white placeholder:text-gray-400 focus:bg-white/20"
+                        />
+                    </div>
+
+                    {/* Filtro Status */}
                     <Select value={filterStatus} onValueChange={setFilterStatus}>
                         <SelectTrigger className="bg-white/10 border-white/20 text-white">
-                            <SelectValue placeholder="Filtrar por Status" />
+                            <SelectValue placeholder="Status" />
                         </SelectTrigger>
                         <SelectContent className="bg-rugby-black border-white/20 text-white">
-                            <SelectItem value="all">Todos</SelectItem>
+                            <SelectItem value="all">Todos os status</SelectItem>
                             <SelectItem value="pending">Pendentes</SelectItem>
                             <SelectItem value="approved">Aprovados</SelectItem>
                             <SelectItem value="rejected">Rejeitados</SelectItem>
+                        </SelectContent>
+                    </Select>
+
+                    {/* Filtro Categoria */}
+                    <Select value={filterCategory} onValueChange={setFilterCategory}>
+                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                            <SelectValue placeholder="Categoria" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-rugby-black border-white/20 text-white">
+                            <SelectItem value="all">Todas as categorias</SelectItem>
+                            {categories.map(cat => (
+                                <SelectItem key={cat} value={cat}>{cat}</SelectItem>
+                            ))}
+                        </SelectContent>
+                    </Select>
+
+                    {/* Filtro Time */}
+                    <Select value={filterTeam} onValueChange={setFilterTeam}>
+                        <SelectTrigger className="bg-white/10 border-white/20 text-white">
+                            <SelectValue placeholder="Time de origem" />
+                        </SelectTrigger>
+                        <SelectContent className="bg-rugby-black border-white/20 text-white">
+                            <SelectItem value="all">Todos os times</SelectItem>
+                            {teams.map(team => (
+                                <SelectItem key={team} value={team}>{team}</SelectItem>
+                            ))}
                         </SelectContent>
                     </Select>
                 </div>
