@@ -40,9 +40,19 @@ type DraftState = {
 
 // Configuration for teams per category
 const TEAMS_CONFIG: Record<string, string[]> = {
-    'Masc': ['Sucuaranas', 'Gralhas', 'Panema', 'Jararacas'],
-    'Feminino': ['Harpias', 'Guarás', 'Jaguatiricas'],
-    'Juvenil Masc': ['Quatis', 'Queixadas', 'Tatus']
+    'Masc': ['Panema', 'Guarás', 'Tatus'],
+    'Feminino': ['Harpias', 'Jaguatiricas'],
+    'Juvenil Masc': ['Queixadas', 'Quatis']
+};
+
+const COACHES_CONFIG: Record<string, string> = {
+    'Panema': 'Davi',
+    'Guarás': 'Peri',
+    'Tatus': 'Ector',
+    'Harpias': 'Maga',
+    'Jaguatiricas': 'Vivian',
+    'Queixadas': 'Jaime',
+    'Quatis': 'Léo Bonfim'
 };
 
 export const DraftBoard = ({ categoryFilter }: DraftBoardProps) => {
@@ -432,11 +442,14 @@ export const DraftBoard = ({ categoryFilter }: DraftBoardProps) => {
                                     {/* Team Header - WITH POINTER-EVENTS-NONE */}
                                     <div className="absolute top-0 inset-x-0 p-2 text-center bg-black/40 backdrop-blur-sm border-b border-white/5 z-10 pointer-events-none">
                                         <h3 className="font-bold text-white text-lg tracking-wider drop-shadow-md">{team}</h3>
+                                        {COACHES_CONFIG[team] && (
+                                            <p className="text-xs text-gray-300 font-medium tracking-wide">Treinador: {COACHES_CONFIG[team]}</p>
+                                        )}
                                     </div>
 
                                     {/* Content */}
                                     {/* Ensure full height container for DraftColumn */}
-                                    <div className="flex-1 pt-12 p-2 overflow-hidden h-full flex flex-col">
+                                    <div className="flex-1 pt-16 p-2 overflow-hidden h-full flex flex-col">
                                         <DraftColumn
                                             id={colId}
                                             title={viewType}
