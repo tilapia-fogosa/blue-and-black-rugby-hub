@@ -20,6 +20,7 @@ import NotFound from "./pages/NotFound";
 import AthleteRegistration from "./pages/AthleteRegistration";
 import DraftPage from "./pages/DraftPage";
 import Relatorios from "./pages/Relatorios";
+import Elenco from "./pages/Elenco";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -37,6 +38,7 @@ const App = () => (
           {/* Active Routes */}
           <Route path="/copa-pe-vermelho" element={<CopaPeVermelho />} />
           <Route path="/cadastro-atleta" element={<AthleteRegistration />} />
+          <Route path="/elenco" element={<Elenco />} />
           <Route path="/relatorios" element={<Relatorios />} />
 
           {/* Authentication Route */}
